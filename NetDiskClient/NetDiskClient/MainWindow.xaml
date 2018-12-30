@@ -1,0 +1,215 @@
+﻿<pu:PUWindow x:Name="mainWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetDiskClient"
+        xmlns:pu="clr-namespace:Panuon.UI;assembly=Panuon.UI"
+        xmlns:UI="clr-namespace:Panuon.UI;assembly=Panuon.UI"  x:Class="NetDiskClient.MainWindow"
+        mc:Ignorable="d"
+        Title="网盘" Height="699" Width="1122" Closed="MainWin_Closed" Loaded="MainWin_Loaded" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label x:Name="lab_nickname" Content="时间" HorizontalAlignment="Left" Margin="127,20,0,0" VerticalAlignment="Top" Width="126" FontSize="24" FontFamily="叶根友毛笔行书" Foreground="#FF151513" />
+        <Label Content="容量大小：" HorizontalAlignment="Left" Margin="341,29,0,0" VerticalAlignment="Top" />
+        <ProgressBar HorizontalAlignment="Left" Height="20" Margin="411,33,0,0" VerticalAlignment="Top" Width="100" Value="50">
+        </ProgressBar>
+        <UI:PUTabControl   TabStripPlacement="Top" Margin="20,109,17,19" FontFamily="/NetDiskClient;component/#FontAwesome">
+
+            <UI:PUTabItem Header="网盘文件浏览">
+                <Grid Margin="0,0,0,15">
+                    <Border BorderBrush ="Black"  BorderThickness="1" CornerRadius="2" Height="46" VerticalAlignment="Top">
+                        <Grid>
+                            <Label x:Name="labUploading" Content="上传" Margin="10,3,0,3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseEnter="LabUploading_MouseEnter" MouseLeave="LabUploading_MouseLeave" Foreground ="Black" FontSize="16" MouseDown="LabUploading_MouseDown" HorizontalAlignment="Left" Width="79">
+                            </Label>
+                            <Label x:Name="labDownloading" Content="下载" Margin="120,3,0,3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseEnter="LabUploading_MouseEnter" MouseLeave="LabUploading_MouseLeave"  Foreground ="Black" FontSize="16" HorizontalAlignment="Left" Width="79"></Label>
+                            <Label x:Name="ftpWords" Content="当前路径：" Margin="404,3,0,3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Foreground ="Black" FontSize="16" HorizontalAlignment="Left" Width="112">
+                            </Label>
+                            <Label x:Name="lab_backpath"  Margin="366,3,0,3" FontFamily="Bahnschrift Light" VerticalContentAlignment="Center" HorizontalAlignment="Left" MouseDown="Lab_backpath_MouseDown">
+                                <Label.Content>
+                                    <Image Source="Image/6.png"></Image>
+                                </Label.Content>
+                            </Label>
+                            <Label x:Name="lab_ftpPath" Content="" Margin="533,3,0,3" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"  Foreground ="Black" FontSize="16" HorizontalAlignment="Left">
+                            </Label>
+                        </Grid>
+                    </Border>
+                    <ListView x:Name="listView" Margin="0,51,-0.333,10.333"  ItemsSource="{Binding}" MouseDoubleClick="ListView_MouseDoubleClick">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="文件" Width="60">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image  Source ="{Binding DataContext.Icon,RelativeSource={RelativeSource AncestorType=ListViewItem}}"  Height="50"></Image>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="名称" Width="350" DisplayMemberBinding="{Binding Path=fileName}" />
+                                <GridViewColumn Header="大小" Width="200" DisplayMemberBinding="{Binding Path=fileSize}" />
+                                <GridViewColumn Header="类型" Width="200" DisplayMemberBinding="{Binding Path=fileType}" />
+                                <GridViewColumn Header="更改日期" Width="200" DisplayMemberBinding="{Binding Path=fileDate}" />
+                            </GridView>
+                        </ListView.View>
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem x:Name="menuOpenFolder" Header="打开" Click="menuOpenFolder_Click"></MenuItem>
+                                <MenuItem x:Name="menuNewFolder" Header="新建文件夹" Click="menuNewFolder_Click"></MenuItem>
+                                <MenuItem x:Name="menuShare" Header="分享" Click="menuShare_Click"></MenuItem>
+                                <MenuItem x:Name="menuDownload" Header="下载" Click="MenuDownload_Click"></MenuItem>
+                                <MenuItem x:Name="menuDelete" Header="删除" Click="menuDelete_Click"></MenuItem>
+                                <MenuItem x:Name="menuRename" Header="重命名" Click="menuRename_Click"></MenuItem>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                    </ListView>
+                </Grid>
+            </UI:PUTabItem>
+            <UI:PUTabItem Header="下载任务">
+                <Grid Margin="0,0,0,0">
+                    <!--<Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="AntiqueWhite" BorderThickness="1" CornerRadius="1">
+                        <Label  Content="下载文件" HorizontalContentAlignment="Center" FontSize="11" />
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="0" BorderBrush="AntiqueWhite" BorderThickness="1" CornerRadius="1">
+                        <Label  Content="大小" HorizontalContentAlignment="Center" FontSize="11" />
+                    </Border>
+                    <Border Grid.Column="2" Grid.Row="0" BorderBrush="AntiqueWhite" BorderThickness="1" CornerRadius="1">
+                        <Label  Content="存放路径" HorizontalContentAlignment="Center" FontSize="11" />
+                    </Border>
+                    <Border Grid.Column="3" Grid.Row="0" BorderBrush="AntiqueWhite" BorderThickness="1" CornerRadius="1">
+                        <Label  Content="剩余" HorizontalContentAlignment="Center" FontSize="11" />
+                    </Border>
+                    <Border Grid.Column="4" Grid.Row="0" BorderBrush="AntiqueWhite" BorderThickness="1" CornerRadius="1">
+                        <Label  Content="速度" HorizontalContentAlignment="Center" FontSize="11" />
+                    </Border>-->
+                    <ListView x:Name="temp"  Margin="0,0,-0.333,10.333"  ItemsSource="{Binding}" MouseDoubleClick="ListView_MouseDoubleClick">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="名称" Width="350" DisplayMemberBinding="{Binding Path=fileName}" />
+                                <GridViewColumn Header="大小" Width="200" DisplayMemberBinding="{Binding Path=fileSize}" />
+                                <GridViewColumn Header="类型" Width="200" DisplayMemberBinding="{Binding Path=fileType}" />
+                                <GridViewColumn Header="更改日期" Width="200" DisplayMemberBinding="{Binding Path=fileDate}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </UI:PUTabItem>
+            <UI:PUTabItem Header="上传任务">
+                <Grid Margin="0,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="AntiqueWhite" BorderThickness="1" CornerRadius="1">
+                        <Label  Content="文件名称" HorizontalContentAlignment="Center" FontSize="11" />
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="0" BorderBrush="AntiqueWhite" BorderThickness="1" CornerRadius="1">
+                        <Label  Content="大小" HorizontalContentAlignment="Center" FontSize="11" />
+                    </Border>
+                    <Border Grid.Column="2" Grid.Row="0" BorderBrush="AntiqueWhite" BorderThickness="1" CornerRadius="1">
+                        <Label  Content="存放路径" HorizontalContentAlignment="Center" FontSize="11" />
+                    </Border>
+                    <Border Grid.Column="3" Grid.Row="0" BorderBrush="AntiqueWhite" BorderThickness="1" CornerRadius="1">
+                        <Label  Content="剩余" HorizontalContentAlignment="Center" FontSize="11" />
+                    </Border>
+                    <Border Grid.Column="4" Grid.Row="0" BorderBrush="AntiqueWhite" BorderThickness="1" CornerRadius="1">
+                        <Label  Content="速度" HorizontalContentAlignment="Center" FontSize="11" />
+                    </Border>
+                </Grid>
+            </UI:PUTabItem>
+            <UI:PUTabItem Header="好友分享">
+                <Border Margin="15,15,15,15" BorderBrush="CornflowerBlue" BorderThickness="1" CornerRadius="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Grid.Row="0" Margin="0,0,0,0" BorderBrush="CornflowerBlue" BorderThickness="1" CornerRadius="1">
+                            <ListView x:Name="listViewFriends" ItemsSource="{Binding}" MouseDoubleClick="ListViewFriends_MouseDoubleClick">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="头像" Width="60">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Image  Source ="{Binding DataContext.Icon,RelativeSource={RelativeSource AncestorType=ListViewItem}}"  Height="50"></Image>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="好友名称" Width="135" DisplayMemberBinding="{Binding Path=Nickname}" />
+                                    </GridView>
+                                </ListView.View>
+                                <ListView.ContextMenu>
+                                    <UI:PUContextMenu>
+                                        <MenuItem x:Name="Menuitem_deletefriend" Header="删除好友" Click="Menuitem_deletefriend_Click"></MenuItem>
+                                        <MenuItem x:Name="Menuitem_checkdata" Header="查看资料" Click="Menuitem_checkdata_Click"></MenuItem>
+                                    </UI:PUContextMenu>
+                                </ListView.ContextMenu>
+                            </ListView>
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" BorderBrush="CornflowerBlue" BorderThickness="1" CornerRadius="1">
+                            <Grid>
+                                <Border Margin="10,10,9.667,0" DockPanel.Dock="Top" BorderBrush="CornflowerBlue" BorderThickness="1" CornerRadius="1" Height="87" VerticalAlignment="Top">
+                                    <Grid>
+                                        <Label x:Name="labNickname_chatframe" Content="" Margin="120,10,0,12" HorizontalAlignment="Left" FontFamily="Raleway" FontWeight="Bold" FontSize="22" ></Label>
+                                        <Image x:Name="imgIcon_chatframe" Margin="15,4,0,4" HorizontalAlignment="Left" Width="81"></Image>
+                                    </Grid>
+                                </Border>
+                                <Border  Margin="10,97,9.667,48.333" BorderBrush="CornflowerBlue" BorderThickness="1" CornerRadius="1">
+                                    <Grid>
+                                        <ScrollViewer x:Name="svMain">
+                                            <StackPanel x:Name="stkMain" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Border>
+                                <Border Margin="1,1,1,1" BorderBrush="CornflowerBlue" BorderThickness="1" CornerRadius="1" Height="42" VerticalAlignment="Bottom">
+                                    <Grid Height="30">
+                                        <UI:PUButton BorderCornerRadius="10" Content="分享文件" Margin="10,3,0,4" HorizontalAlignment="Left" Width="70" />
+                                        <TextBox x:Name="txt_msg" Margin="95,3,103,4" />
+                                        <UI:PUButton BorderCornerRadius="10" x:Name="btn_sendmsg" Content="发 送" Margin="0,3,10,4" HorizontalAlignment="Right" Width="83" Click="Btn_sendmsg_Click" IsEnabled="False" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+            </UI:PUTabItem>
+        </UI:PUTabControl>
+
+        <Menu Height="25" Width="50" Margin="0,20,17,0" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <MenuItem Header="菜单" Height="25" Width="50">
+                <MenuItem x:Name="MenuItem_personalData" Header="账户信息" Click="MenuItem_personalData_Click" />
+                <MenuItem x:Name="MenuItem_changepassword" Header="修改密码" Click="MenuItem_changepassword_Click" />
+                <MenuItem x:Name="MenuItem_addFriend" Header="添加好友" Click="MenuItem_addFriend_Click" />
+                <MenuItem x:Name="menuItem_exit" Header="退出网盘" Click="MenuItem_exit_Click" />
+            </MenuItem>
+        </Menu>
+        <Image x:Name="img_icon" HorizontalAlignment="Left" Height="57" Margin="39,10,0,0" VerticalAlignment="Top" Width="70" />
+    </Grid>
+</pu:PUWindow>

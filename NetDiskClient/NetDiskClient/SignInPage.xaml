@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="NetDiskClient.SignInPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:NetDiskClient"
+             xmlns:ui="clr-namespace:Panuon.UI;assembly=Panuon.UI"
+             mc:Ignorable="d" Height="330" Width="450">
+    <Grid>
+        <Image Source="Bg/1.jpg"  Stretch ="UniformToFill" />
+        <Grid>
+            <Label Content="登录" Margin="77,10,106,0" VerticalContentAlignment="Center"  FontSize="36" Height="51" VerticalAlignment="Top"></Label>
+            <ui:PUTextBox Name="txtUsername" Height="50"
+                      BorderBrush="LightGray"
+                      TextBoxStyle="IconGroup"
+                      Icon=""
+                      Watermark="输入用户名"
+                      Text="{Binding Text,Mode=TwoWay}"
+                      Margin="77,82,60,0" VerticalAlignment="Top" />
+
+            <ui:PUPasswordBox Name="txtpassword"
+                          BorderBrush="LightGray"
+                          Password="{Binding Password,Mode=TwoWay}"
+                          PasswordBoxStyle="IconGroup"
+                          Icon=""
+                          Watermark="输入密码"
+                          Margin="77,149,60,0" Height="50" VerticalAlignment="Top" />
+            <ui:PUButton x:Name="btnSignIn"
+                     BorderCornerRadius="3"
+                     Content="登  录"
+                     Click="btnSignIn_Click" Margin="282,251,60,0" Height="38" VerticalAlignment="Top" />
+            <ui:PUButton x:Name="btnSignUp"
+                     BorderCornerRadius="3"
+                     Content="注  册"
+                     Click="btnSignUp_Click" Margin="77,251,265,0" Height="38" VerticalAlignment="Top" />
+            <!--Click="btnSignUp_Click"-->
+
+            <!--<PasswordBox  HorizontalAlignment="Left" Margin="120,170,0,0" VerticalAlignment="Top" Width="215" Height="25" />-->
+            <Image Source="Image/1.png" HorizontalAlignment="Left" Height="28" Margin="368,0,0,0" VerticalAlignment="Top" Width="32" MouseDown="Image_MouseDown" />
+        </Grid>
+    </Grid>
+</UserControl>

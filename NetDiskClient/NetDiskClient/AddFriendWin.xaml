@@ -1,0 +1,25 @@
+﻿<ui:PUWindow x:Name="AddFriendWin1" x:Class="NetDiskClient.AddFriendWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetDiskClient"
+        xmlns:ui="clr-namespace:Panuon.UI;assembly=Panuon.UI"
+        mc:Ignorable="d"
+        AnimationStyle="Gradual"
+        ResizeMode="NoResize"
+        Title="添加好友" Height="362.763" Width="452.697" WindowStartupLocation="Manual" Closed="AddFriendWin1_Closed">
+    <Grid>
+        <Label Content="输入账号/昵称添加好友：" HorizontalAlignment="Left" Margin="20,50,0,0" VerticalAlignment="Top" FontFamily="Yu Gothic Medium" />
+        <ui:PUTextBox x:Name="txt_username" HorizontalAlignment="Left" Height="23" Margin="191,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158" />
+        <ui:PUButton BorderCornerRadius="5" x:Name="btn_search" Content="搜索好友" HorizontalAlignment="Left" Margin="274,95,0,0" VerticalAlignment="Top" Width="75" Click="Btn_search_Click" Height="27" />
+        <Border BorderBrush="Black" BorderThickness="1" Margin="74,147,73,22">
+            <Grid Margin="0,0,0,-1">
+                <ui:PUButton BorderCornerRadius="5" x:Name="btn_addFriend" Content="添加好友" HorizontalAlignment="Left" Margin="108,115,0,0" VerticalAlignment="Top" Width="75" Click="Btn_addFriend_Click" Height="22" />
+                <Label x:Name="lab_addnickname" Content="" HorizontalAlignment="Left" Margin="108,38,0,0" VerticalAlignment="Top" FontSize="10" />
+                <Image x:Name="img_addicon" Margin="28,10,222,68"></Image>
+                <Label x:Name="lab_addusername" Content="" HorizontalAlignment="Left" Margin="108,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.367,0.507" FontSize="10" />
+            </Grid>
+        </Border>
+    </Grid>
+</ui:PUWindow>

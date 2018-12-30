@@ -1,0 +1,34 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:NetDiskClient"
+             xmlns:UI="clr-namespace:Panuon.UI;assembly=Panuon.UI" x:Class="NetDiskClient.SignupPage"
+             mc:Ignorable="d" Height="330" Width="450">
+    <Grid Loaded="Grid_Loaded">
+        <Image Source="Bg/2.jpg"  Stretch ="UniformToFill" />
+
+        <Border VerticalAlignment="Top" Margin="0,10,53,0" Height="202" Cursor="None" BorderThickness="1" BorderBrush="Coral" HorizontalAlignment="Right" Width="302">
+            <Grid>
+                <TextBox x:Name="txtUsernameSingup" Width="160" VerticalAlignment="Top" TextWrapping="Wrap" Margin="0,32,53,0" Height="23" HorizontalAlignment="Right" />
+                <Label VerticalAlignment="Top" Margin="0,32,213,0" Height="23" FontSize="10" Content="用户名：" Background="#FFB2B0B0" HorizontalAlignment="Right" Width="58" />
+                <Label VerticalAlignment="Top" Margin="0,87,213,0" Height="23" FontSize="10" Content="密   码：" Background="#FFB2B0B0" HorizontalAlignment="Right" Width="57" />
+                <UI:PUPasswordBox x:Name="txtPasswordSignUp" Width="160" VerticalAlignment="Top"  Margin="0,87,53,0" Height="23" HorizontalAlignment="Right" />
+                <Label VerticalAlignment="Top" Margin="0,144,213,0" Height="23" FontSize="10" Content="确认密码：" Background="#FFB2B0B0" HorizontalAlignment="Right" Width="58" />
+                <UI:PUPasswordBox x:Name="txtPasswordConfirm" Width="160" VerticalAlignment="Top" TextChanged="txtPasswordConfirm_TextChanged" TextWrapping="Wrap" Margin="0,144,53,0" Height="23" HorizontalAlignment="Right" />
+                <Label x:Name="labPasswordAlert" Width="130" VerticalAlignment="Top" Visibility="Collapsed" Margin="119,167,0,0" HorizontalAlignment="Left" FontSize="7" Foreground="#FFEE1F1F" Content="两次输入密码不一致！" />
+            </Grid>
+        </Border>
+        <Label Width="60" VerticalAlignment="Top" RenderTransformOrigin="0,0.2" Margin="40,325,0,-20" HorizontalAlignment="Left" Content="注册信息" />
+
+        <UI:PUButton x:Name="btn_giveUp"
+            BorderCornerRadius="3"
+            Content="放  弃"
+            Margin="0,247,250,0" Height="38" VerticalAlignment="Top" Click="Btn_giveUp_Click" HorizontalAlignment="Right" Width="105" />
+        <UI:PUButton x:Name="btnConfirmSignUp"
+        BorderCornerRadius="3"
+        Content="确认注册"
+        Click="btnConfirmSignUp_Click" Margin="249,247,0,0" Height="38" VerticalAlignment="Top" HorizontalAlignment="Left" Width="105" />
+    </Grid>
+</UserControl>
